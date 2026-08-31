@@ -1,0 +1,565 @@
+:root{
+  --blue:#f0a500; --blue-d:#353c43; --navy:#16181c; --ink:#1b1e22; --mut:#585f67;
+  --line:#e0e0dd; --paper:#ffffff; --alt:#f2f2ef; --gold:#c78500;
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+}
+
+
+*,*::before,*::after{box-sizing:border-box}
+/* body is navy so any surplus artboard frame below the footer paints navy and reads as
+   part of the footer; .page carries the real white ground for the content itself */
+body{margin:0;background:var(--navy);color:#fff;
+  font-family:'IBM Plex Sans','Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+.page{background:var(--paper);color:var(--ink)}
+img{max-width:100%;display:block}
+a{color:var(--blue-d);text-decoration:none}
+a:hover{color:var(--navy);text-decoration:underline}
+h1,h2,h3,h4{margin:0;line-height:1.12;letter-spacing:-0.03em;font-weight:800;color:var(--navy);font-family:'Archivo','Arial Narrow',system-ui,-apple-system,Arial,sans-serif}
+h1{font-size:70px}
+h2{font-size:39px}
+h3{font-size:25px;letter-spacing:-0.014em}
+h4{font-size:20px;letter-spacing:-0.01em}
+p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+.sec{padding:96px 0}
+.sec-sm{padding:64px 0}
+.alt{background:var(--alt)}
+.dark{background:var(--navy);color:#fff}
+.dark h2,.dark h3,.dark h4{color:#fff}
+.dark p{color:#c4c8cd}
+.kick{font-size:13px;font-weight:700;font-family:'Archivo','Arial Narrow',system-ui,-apple-system,Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-d);margin:0 0 16px}
+.dark .kick{color:#ffc233}
+.lede{font-size:20px;line-height:1.55;color:var(--mut)}
+.dark .lede{color:#c4c8cd}
+.mut{color:var(--mut)}
+.sm{font-size:13px}
+.stack{display:flex;flex-direction:column}
+.row{display:flex;align-items:center}
+.g8{gap:8px}.g16{gap:16px}.g24{gap:24px}.g32{gap:32px}.g48{gap:48px}
+.mt16{margin-top:16px}.mt24{margin-top:24px}.mt32{margin-top:32px}.mt48{margin-top:48px}.mt64{margin-top:64px}
+.grid{display:grid;gap:24px}
+.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.c4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.c5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--blue-d);color:#fff;font-weight:700;font-size:16px;
+  padding:16px 32px;border-radius:4px;border:0;cursor:pointer;
+  transition:background 180ms var(--ease-out),transform 180ms var(--ease-out)}
+.btn:hover{color:#fff;text-decoration:none}
+/* Job Site: amber marks the act-here element only. It cannot hold 4.5:1 as ink on
+   white, so it is a FILL with near-black type and the link/kicker ink stays graphite.
+   Scoped off the secondaries or the hero renders two primary CTAs. */
+.btn:not(.btn-ghost):not(.btn-onDark){background:#f0a500;color:#17191c}
+.btn:not(.btn-ghost):not(.btn-onDark):hover{color:#17191c}
+@media (hover:hover) and (pointer:fine){
+  .btn:not(.btn-ghost):not(.btn-onDark):hover{background:#d18f00}}
+@media (hover:hover) and (pointer:fine){.btn:hover{background:#1f2429;transform:translateY(-1px)}}
+/* A transparent button with a hairline reads as disabled; this is the failure already recorded
+   on the Infintech round-3 work. On a light ground the secondary is white with a 2px ink edge. */
+.btn-ghost{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.btn-ghost:hover{color:var(--navy)}
+@media (hover:hover) and (pointer:fine){.btn-ghost:hover{background:#fff;border-color:var(--blue);transform:translateY(-1px)}}
+.btn-onDark{background:#fff;color:var(--navy)}
+.btn-onDark:hover{color:var(--navy)}
+@media (hover:hover) and (pointer:fine){.btn-onDark:hover{background:#e0e0dd;transform:translateY(-1px)}}
+.tel{display:inline-flex;align-items:center;gap:8px;font-weight:700;color:var(--navy)}
+.tel:hover{color:var(--blue-d);text-decoration:none}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:32px}
+.card h4{margin-bottom:8px}
+/* was a pale accent tint on a white card, two percent away from the page ground and the only
+   colour in six consecutive light sections. Filled brand blue with a white glyph instead. */
+.iconbox{width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;
+  background:var(--blue-d);color:#fff;margin-bottom:16px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;
+  border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;color:var(--navy)}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+.field{width:100%;padding:14px 16px;border:1px solid var(--line);border-radius:4px;font:inherit;
+  font-size:16px;color:var(--ink);background:#fff}
+.field::placeholder{color:#585f67}
+.lbl{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px;display:block}
+.acc{border-top:1px solid var(--line);padding:24px 0}
+.acc h4{margin-bottom:8px}
+.tile{display:flex;align-items:center;gap:16px;padding:16px;border:1px solid var(--line);
+  border-radius:6px;background:#fff}
+.tile .iconbox{margin:0;width:40px;height:40px;flex:0 0 auto}
+.stat-n{font-size:40px;font-weight:700;letter-spacing:-0.03em;color:#fff;line-height:1}
+.ratings{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ratings img{height:40px;width:auto}
+.stars{display:flex;gap:2px;color:var(--gold)}
+.ph{background:var(--alt);border:1px dashed var(--line);border-radius:6px;display:flex;
+  align-items:center;justify-content:center;color:var(--mut);font-size:13px;font-weight:600;text-align:center;padding:16px}
+.brand-logo{height:48px;width:auto}
+.foot-h{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#fff;margin:0 0 16px}
+.foot a{color:#c4c8cd}
+.foot a:hover{color:#fff}
+/* `.foot a` is 0,1,1 and beats `.btn-onDark` at 0,1,0, so the footer's own link colour was
+   repainting the label of a WHITE-filled button: pale grey on white, measured 1.66:1 on the
+   rendered page and unreadable. A container rule colouring a filled component inside it is the
+   same root cause recorded in reference_craft_contrast_blindspot. Scoped, not !important. */
+.foot a.btn-onDark{color:var(--navy)}
+.foot a.btn-onDark:hover{color:var(--navy)}
+
+/* semantic heading levels carry visual size via these, so fixing the H2->H4 skips
+   changed the outline without changing the design */
+.t-h3{font-family:'Archivo','Arial Narrow',system-ui,-apple-system,Arial,sans-serif;font-size:25px;letter-spacing:-0.014em}
+.t-h4{font-family:'Archivo','Arial Narrow',system-ui,-apple-system,Arial,sans-serif;font-size:20px;letter-spacing:-0.01em}
+.skip{position:absolute;left:-9999px;top:0;z-index:60;background:var(--navy);color:#fff;
+  padding:12px 20px;font-weight:700;border-radius:0 0 4px 0}
+.skip:focus{left:0;color:#fff}
+
+/* Service tiles. Each one is a link to its own page, which is ten internal links the homepage
+   was not making, and the arrow is the affordance that says so. */
+.svc-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:end}
+.svc-card{position:relative;display:flex;flex-direction:column;overflow:hidden;
+  color:inherit;text-decoration:none}
+/* scaleX, never width. A width transition animates a layout property and is banned by
+   verify_round3.py check 1, which caught exactly this on 2026-08-31. */
+.svc-card .svc-rule{position:absolute;top:0;left:0;height:3px;width:100%;background:var(--blue);
+  transform:scaleX(0);transform-origin:left}
+.svc-card .iconbox{margin-bottom:16px}
+.svc-card .svc-name{margin:0;color:var(--navy)}
+.svc-card .svc-body{margin-top:8px;margin-bottom:24px}
+/* A labelled button, not a bare arrow: an arrow alone is only legible once you already know the
+   card is clickable. It stays a <span> inside the anchor, so the tile is still one link and there
+   is no interactive element nested inside another. */
+.svc-card .svc-go{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  margin-top:auto;background:#fdf0d2;color:var(--blue-d);font-weight:700;font-size:13px;
+  padding:10px 16px;border-radius:4px}
+.svc-card{margin-top:0}
+.svc-card > .svc-go{margin-top:auto}
+/* The tile is a link, so the base a:hover rule was underlining the heading AND the whole body
+   paragraph on hover. A card is not a text link. */
+.svc-card:hover,.svc-card:hover .svc-name,.svc-card:hover .svc-body{text-decoration:none}
+/* photo-led variant: the padding moves off the card and onto the text block so the image can
+   run to the card's edges */
+.svc-photo{padding:0}
+.svc-photo > img{width:100%;height:150px;object-fit:cover;display:block}
+.svc-photo .svc-inner{display:flex;flex-direction:column;flex:1 1 auto;padding:24px}
+/* The icon panel stands in for a photograph on the three services this library has no accurate
+   image for. Same 150px band, same card silhouette, so the grid keeps one shape. */
+.svc-mark{display:flex;align-items:center;justify-content:center;height:150px;
+  background:linear-gradient(135deg,#fdf0d2,#f8e0a8);color:var(--blue-d)}
+.svc-panel .svc-mark{background:rgba(255,255,255,.07);color:#ffc233}
+@media (hover:hover) and (pointer:fine){
+  .svc-photo > img{transition:transform 260ms cubic-bezier(0.23,1,0.32,1)}
+  .svc-photo:hover > img{transform:scale(1.03)}
+}
+@media (hover:hover) and (pointer:fine){
+  .svc-card{transition:box-shadow 220ms cubic-bezier(0.23,1,0.32,1),
+                       transform 220ms cubic-bezier(0.23,1,0.32,1),
+                       border-color 220ms cubic-bezier(0.23,1,0.32,1)}
+  .svc-card .svc-rule{transition:transform 260ms cubic-bezier(0.23,1,0.32,1)}
+  .svc-card .svc-go{transition:transform 220ms cubic-bezier(0.23,1,0.32,1)}
+  .svc-card:hover{transform:translateY(-3px);border-color:#b8b8b3;
+    box-shadow:0 1px 2px rgba(22,24,28,.06),0 14px 32px rgba(22,24,28,.10)}
+  .svc-card:hover .svc-rule{transform:scaleX(1)}
+  .svc-card:hover .svc-go{transform:translateX(4px)}
+}
+.svc-card:focus-visible .svc-rule{transform:scaleX(1)}
+/* reduced motion means gentler, not zero: the rule and the shadow stay, the travel goes */
+@media (prefers-reduced-motion:reduce){
+  html:not([data-motion="force"]) .svc-card:hover{transform:none}
+  html:not([data-motion="force"]) .svc-card:hover .svc-go{transform:none}
+}
+@media (max-width:900px){
+  .svc-head{grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+}
+@media (max-width:700px){
+  .svc-photo > img{height:180px}
+  .svc-mark{height:140px}
+  .svc-photo .svc-inner{padding:20px}
+}
+
+/* Instagram strip. Square tiles on a six-up row, three-up on a phone, and the whole tile is the
+   link so the target is a thumb-sized square and not a 13px text row beside it. */
+.ig-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.ig-tile{position:relative;display:block;border-radius:6px;overflow:hidden;aspect-ratio:1/1;background:var(--line)}
+.ig-tile img{width:100%;height:100%;object-fit:cover;display:block}
+.ig-mark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  color:#fff;background:rgba(22,24,28,.55);opacity:0}
+@media (hover:hover) and (pointer:fine){
+  .ig-tile img{transition:transform 240ms cubic-bezier(0.23,1,0.32,1)}
+  .ig-mark{transition:opacity 240ms cubic-bezier(0.23,1,0.32,1)}
+  .ig-tile:hover img{transform:scale(1.04)}
+  .ig-tile:hover .ig-mark{opacity:1}
+}
+.ig-tile:focus-visible .ig-mark{opacity:1}
+@media (max-width:700px){ .ig-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+
+/* ---- process, stepped ---------------------------------------------------
+   The number comes out of the card and sits on a rule, so the sequence is the thing you see
+   first. The rule is behind the badges, which is why the badges carry a z-index. */
+.proc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;position:relative}
+/* The rule joins badge 01 to badge 03 and stops there. Track maths, so it stays exact at any
+   width: with three 1fr columns and a 32px gap, a column is (100% - 64px)/3 and the last badge's
+   centre sits 28px into it, so the right inset is that column width minus 28px. */
+.proc-grid::before{content:"";position:absolute;left:28px;top:27px;height:2px;
+  right:calc((100% - 64px)/3 - 28px);background:var(--line);z-index:0}
+.proc-step{position:relative;display:flex;flex-direction:column;min-width:0}
+.proc-num{font-family:'Archivo','Arial Narrow',system-ui,-apple-system,Arial,sans-serif;width:56px;height:56px;border-radius:50%;background:var(--navy);color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;
+  letter-spacing:.02em;position:relative;z-index:1;margin-bottom:24px;flex:0 0 auto}
+.proc-card{flex:1 1 auto}
+.proc-cta .mut{max-width:34ch}
+
+/* ---- commercial on an inset navy panel ---------------------------------- */
+.svc-panel{background:var(--navy);border-radius:12px;padding:48px}
+.svc-panel .kick{color:#ffc233}
+.svc-panel h2{color:#fff}
+.svc-panel .lede{color:#c4c8cd}
+.svc-panel .svc-card{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14)}
+.svc-panel .svc-card .svc-name{color:#fff}
+.svc-panel .svc-card .svc-body{color:#c4c8cd}
+.svc-panel .svc-card .iconbox{background:rgba(255,255,255,.12);color:#fff}
+.svc-panel .svc-card .svc-go{background:rgba(255,255,255,.12);color:#fff}
+@media (hover:hover) and (pointer:fine){
+  .svc-panel .svc-card:hover{border-color:rgba(255,255,255,.34);
+    box-shadow:0 14px 32px rgba(0,0,0,.28)}
+}
+
+/* ---- service areas, copy left and photograph right ---------------------- */
+.cities-split{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}
+
+/* ---- social marks -------------------------------------------------------
+   44px targets, which is the minimum this build uses everywhere else for a tappable control. */
+/* margin:0 here would beat the .mt24 utility on the element, because this block is appended
+   to BASE_CSS and therefore comes later at equal specificity. Set the top margin outright. */
+.social{display:flex;gap:8px;flex-wrap:wrap;list-style:none;margin:24px 0 0;padding:0}
+.social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;
+  border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  color:#fff}
+@media (hover:hover) and (pointer:fine){
+  .social a{transition:background 180ms var(--ease-out),border-color 180ms var(--ease-out),
+                       transform 180ms var(--ease-out)}
+  .social a:hover{background:var(--blue-d);border-color:var(--blue-d);color:#fff;
+    transform:translateY(-2px)}
+}
+.social a:focus-visible{background:var(--blue-d);border-color:#fff}
+
+/* ---- light-section photographic ground ---------------------------------
+   The hero pattern tuned for a light band: the veil is near-opaque white so the white step cards
+   still read as cards on top of it, and the image survives only as wall texture. Contrast is
+   measured on the rendered page, because a veiled image is not a computed background-color. */
+.sec-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:50% 55%;opacity:1;z-index:0}
+/* The veil is the whole contrast story on a light band. It has to stay heavy enough that the
+   white step cards still read as cards ON something, and light enough that the photograph is
+   actually visible: a near-white image under a .95 veil is an image nobody can see. */
+/* Two layers, because one vertical gradient cannot do both jobs. The horizontal layer is
+   heavier at the left, where the kicker, the H2 and the CTA note sit, and clears to nothing
+   past the middle so the colour fan on the right actually reads. Measured on the rendered
+   page: at a flat .82/.70/.86 the kicker fell to 4.37:1 and the CTA note to 3.90:1. */
+.sec-veil{position:absolute;inset:0;z-index:0;background:
+  linear-gradient(95deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.46) 46%,
+                         rgba(255,255,255,.06) 72%, rgba(255,255,255,0) 100%),
+  linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.56) 45%,
+                          rgba(255,255,255,.78) 100%)}
+/* the same construction on a dark band: the scrim has to be heavier because the type is white */
+/* On a photographic band the muted note and the kicker sit on paint swatches, not on paper,
+   so they take a darker ink. Scoped to .on-photo: everywhere else the tokens are unchanged. */
+.sec.on-photo .kick{color:#2b3137}
+.sec.on-photo .proc-cta .sm{color:#383e44}
+.sec-veil-dark{position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,
+  rgba(22,24,28,.96) 0%, rgba(22,24,28,.88) 55%, rgba(22,24,28,.80) 100%)}
+
+/* ---- hero photographic ground -------------------------------------------
+   A real image element, not a CSS background, so it is unambiguous and carries alt text.
+   The veil is heavy on the left, where the headline and the lede sit, and thins towards
+   the right, so the texture reads around the estimate card and never fights the copy. Measured
+   contrast on this page must stay at zero failures. */
+.hero-bg,.sec-bg{filter:saturate(.42) contrast(1.04)}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:50% 45%;opacity:.72;z-index:0}
+/* heavy but no longer opaque across the copy column, then thinning hard past it, so the
+   photograph actually reads around the estimate card. It was the dark ground at FULL opacity over a
+   .42 image, which is an image nobody could see: the band rendered as flat navy. Contrast on
+   the left is measured on the RENDERED page, not computed from a token, because a veiled
+   photograph is not a background-color. */
+.hero-veil{position:absolute;inset:0;z-index:0;background:linear-gradient(100deg,
+  rgba(22,24,28,.95) 0%, rgba(22,24,28,.93) 32%, rgba(22,24,28,.72) 58%, rgba(22,24,28,.36) 100%)}
+.hero-h{position:relative;z-index:1}
+@media (max-width:900px){
+  /* On a phone the copy runs the full width, so the veil is flat rather than directional. It
+     still has to let the photograph through: at .95 over a .18 image the band rendered as a
+     plain navy block. Contrast is measured at 390 and 360 on the rendered page. */
+  .hero-veil{background:rgba(22,24,28,.82)}
+  .hero-bg{opacity:.60;object-position:58% 45%}
+}
+
+/* ---- stats band --------------------------------------------------------- */
+.stat-marks{display:flex;align-items:center;gap:24px 40px;flex-wrap:wrap;margin-top:40px;
+  padding-top:32px;border-top:1px solid rgba(255,255,255,.14);justify-content:space-between}
+.stat-marks-rate{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.stat-marks .ratings img{height:40px;width:auto}
+.stat-marks .social{margin:0}
+
+@media (max-width:900px){
+  .proc-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+  .proc-grid::before{display:none}
+  .svc-panel{padding:32px}
+  .cities-split{grid-template-columns:minmax(0,1fr)}
+  .cities-split img{min-height:260px !important;height:300px !important}
+}
+@media (max-width:700px){
+  .svc-panel{padding:24px 20px}
+  .proc-cta .btn{width:100%}
+  .proc-cta .mut{max-width:none}
+  .stat-marks{margin-top:32px;padding-top:24px}
+}
+
+
+:root{
+  --ease-out:cubic-bezier(0.23,1,0.32,1);
+  --ease-in-out:cubic-bezier(0.77,0,0.175,1);
+  --ease-drawer:cubic-bezier(0.32,0.72,0,1);
+  --ease-reveal:cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ---- shared reveal primitive ------------------------------------------- */
+[data-rv]{opacity:0}
+[data-rv].in{opacity:1}
+[data-rv="up"]{transform:translateY(22px)}
+[data-rv="up"].in{transform:none;transition:opacity 560ms var(--ease-reveal),transform 560ms var(--ease-reveal)}
+[data-rv="fade"].in{transition:opacity 560ms var(--ease-reveal)}
+[data-rv="left"]{transform:translateX(-26px)}
+[data-rv="left"].in{transform:none;transition:opacity 620ms var(--ease-reveal),transform 620ms var(--ease-reveal)}
+[data-rv="right"]{transform:translateX(26px)}
+[data-rv="right"].in{transform:none;transition:opacity 620ms var(--ease-reveal),transform 620ms var(--ease-reveal)}
+/* A horizontal reveal holds its translate as a BEFORE state, so an element that has not
+   revealed yet sits outside its layout box and widens the page. Below 920px the grids are
+   single column and the left/right choreography means nothing, so fall back to the vertical
+   reveal, which cannot overflow. */
+@media (max-width:919px){
+  [data-rv="left"],[data-rv="right"]{transform:translateY(22px)}
+  [data-rv="left"].in,[data-rv="right"].in{transform:none}
+}
+[data-rv="scale"]{transform:scale(.96)}
+[data-rv="scale"].in{transform:none;transition:opacity 560ms var(--ease-reveal),transform 560ms var(--ease-reveal)}
+
+/* ---- G: the wet edge ---------------------------------------------------- */
+/* a colour wipe travels left to right behind a bright leading line, the way a roller lays off */
+.we-wipe{position:relative;overflow:hidden}
+.we-wipe > .we-in{clip-path:inset(0 100% 0 0)}
+.we-wipe.in > .we-in{clip-path:inset(0 0 0 0);transition:clip-path 680ms var(--ease-reveal)}
+.we-wipe::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue);
+  opacity:0;pointer-events:none}
+.we-wipe.in::after{animation:we-edge 680ms var(--ease-reveal) forwards}
+@keyframes we-edge{
+  0%{opacity:1;transform:translateX(0)}
+  99%{opacity:1}
+  100%{opacity:0;transform:translateX(var(--we-w,100%))}
+}
+/* the fixed rail reports how far down the page the edge has travelled */
+.we-rail{position:fixed;left:0;top:0;bottom:0;width:3px;background:rgba(22,24,28,.10);z-index:40}
+.we-rail i{display:block;width:100%;height:0;background:var(--blue)}
+/* continuous flow: no alternating bands, one paper ground, hairline rules between sections */
+.we-flow .alt{background:var(--paper)}
+.we-flow .sec + .sec,.we-flow .sec + .sec-sm,.we-flow .sec-sm + .sec{border-top:1px solid var(--line)}
+
+/* ---- H: two coats ------------------------------------------------------- */
+/* everything lands thin, then a second pass brings it solid */
+.coat .c1{opacity:.28}
+.coat.in .c1{opacity:1;transition:opacity 620ms var(--ease-reveal) 180ms}
+.tc-word{position:relative;display:inline-block}
+/* both painted layers ride on top of the spacer. If .thin stays in flow every word
+   occupies its box twice and the headline renders at double width. */
+.tc-word .thin,.tc-word .solid{position:absolute;left:0;top:0;white-space:nowrap}
+.tc-word .thin{color:var(--blue);opacity:.32}
+.tc-word .solid{color:#fff;clip-path:inset(0 100% 0 0)}
+.tc-word.in .solid{clip-path:inset(0 0 0 0);transition:clip-path 700ms var(--ease-reveal) 240ms}
+.tc-swatch{position:relative;overflow:hidden;border-radius:6px}
+/* the wash CLEARS to reveal the photograph, which is what "the colour goes true" means.
+   It must never end up covering a real photo, at any motion setting. */
+.tc-swatch .lay{position:absolute;left:0;right:0;top:0;bottom:0;background:var(--blue);opacity:.42;
+  clip-path:inset(0 0 0 0)}
+.tc-swatch.in .lay{clip-path:inset(100% 0 0 0);transition:clip-path 700ms var(--ease-reveal)}
+.h-elev{box-shadow:0 10px 30px rgba(22,24,28,.09)}
+
+/* ---- I: one crew -------------------------------------------------------- */
+/* one unbroken thread draws itself through every numbered stop */
+.oc-wrap{position:relative}
+.thread{position:absolute;left:31px;top:12px;bottom:12px;width:2px;background:var(--line);overflow:hidden}
+.thread i{position:absolute;left:0;right:0;top:0;height:0;background:var(--blue)}
+.oc-stop{position:relative;padding-left:96px;padding-bottom:44px}
+.oc-stop:last-child{padding-bottom:0}
+.oc-num{position:absolute;left:0;top:-4px;width:64px;height:64px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--line);color:var(--mut);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;z-index:1}
+.oc-stop.in .oc-num{border-color:var(--blue);color:var(--blue-d);
+  transition:border-color 420ms var(--ease-out),color 420ms var(--ease-out)}
+
+/* ---- hover motion, gated -------------------------------------------------
+   Our fleet is mobile-majority and an ungated hover transform fires on tap and
+   stays stuck until the visitor taps elsewhere. */
+@media (hover:hover) and (pointer:fine){
+  .m-lift{transition:transform 200ms var(--ease-out),box-shadow 200ms var(--ease-out)}
+  .m-lift:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(22,24,28,.14)}
+  .m-tile{transition:transform 200ms var(--ease-out),border-color 200ms var(--ease-out)}
+  .m-tile:hover{transform:translateY(-2px);border-color:var(--blue)}
+  .m-img{overflow:hidden}
+  .m-img img{transition:transform 420ms var(--ease-out)}
+  .m-img:hover img{transform:scale(1.04)}
+}
+
+/* ---- sticky bar (G) ------------------------------------------------------ */
+.stickybar{position:fixed;left:0;right:0;bottom:0;z-index:45;background:var(--navy);
+  transform:translateY(110%);opacity:0}
+.stickybar.up{transform:none;opacity:1;transition:transform 320ms var(--ease-drawer),opacity 320ms var(--ease-out)}
+
+/* ---- scroll-reveal-minimal header (G) ------------------------------------ */
+.revealhdr{position:fixed;left:0;right:0;top:0;z-index:50;background:transparent}
+.revealhdr.solid{background:#fff;border-bottom:1px solid var(--line)}
+.revealhdr.hide{transform:translateY(-100%)}
+.revealhdr{transition:transform 280ms var(--ease-out),background 280ms var(--ease-out)}
+
+/* ---- reduced motion: gentler, not zero -----------------------------------
+   Opacity and colour survive. Only movement, wipes and the drawn fills stop. */
+@media (prefers-reduced-motion:reduce){
+  html:not([data-motion="force"]) [data-rv]{transform:none}
+  html:not([data-motion="force"]) .we-wipe > .we-in,
+  html:not([data-motion="force"]) .we-wipe.in > .we-in{clip-path:none}
+  html:not([data-motion="force"]) .we-wipe::after,
+  html:not([data-motion="force"]) .we-wipe.in::after{display:none;animation:none}
+  html:not([data-motion="force"]) .tc-word .thin{visibility:hidden}
+  html:not([data-motion="force"]) .tc-word .solid{position:absolute}
+  html:not([data-motion="force"]) .tc-word .solid,
+  html:not([data-motion="force"]) .tc-word.in .solid{clip-path:none}
+  html:not([data-motion="force"]) .tc-swatch .lay,
+  html:not([data-motion="force"]) .tc-swatch.in .lay{clip-path:inset(100% 0 0 0)}
+  html:not([data-motion="force"]) .we-rail i,
+  html:not([data-motion="force"]) .thread i{height:100%}
+  html:not([data-motion="force"]) .stickybar{transform:none}
+  html:not([data-motion="force"]) .revealhdr.hide{transform:none}
+  html:not([data-motion="force"]) .m-lift:hover,
+  html:not([data-motion="force"]) .m-tile:hover{transform:none}
+  html:not([data-motion="force"]) .m-img:hover img{transform:none}
+}
+
+
+.accp{display:grid;grid-template-rows:0fr;transition:grid-template-rows 220ms var(--ease-in-out)}
+.accp.open{grid-template-rows:1fr}
+.accp > div{overflow:hidden}
+.accbtn{display:flex;width:100%;gap:16px;align-items:flex-start;justify-content:space-between;
+  background:none;border:0;padding:0;text-align:left;cursor:pointer;font:inherit;color:var(--navy)}
+.accbtn .chev{flex:0 0 auto;color:var(--blue-d);transition:transform 220ms var(--ease-out)}
+.accbtn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+@media (prefers-reduced-motion:reduce){
+  html:not([data-motion="force"]) .accp{transition:none}
+  html:not([data-motion="force"]) .accbtn .chev{transition:none}
+}
+
+
+@media (max-width:700px){
+  body{font-size:16px}
+  h1{font-size:31px;letter-spacing:-0.018em}
+  h2{font-size:25px}
+  h3{font-size:20px}
+  h4{font-size:16px}
+  .lede{font-size:16px}
+  .wrap{padding:0 20px}
+  .sec{padding:48px 0}
+  .sec-sm{padding:32px 0}
+  .c2,.c3,.c4,.c5{grid-template-columns:minmax(0,1fr)}
+  .grid{gap:16px}
+  .card{padding:24px}
+  .stat-n{font-size:39px}
+  .btn{width:100%;padding:16px 24px}
+  .btn-inline{width:auto}
+  .g48{gap:24px}.g32{gap:24px}
+  .mt64{margin-top:32px}.mt48{margin-top:32px}
+  .brand-logo{height:44px}
+  .blog-lead{grid-template-columns:minmax(0,1fr)}
+  .blog-lead img{min-height:220px !important;height:220px !important}
+  .blog-lead > div{padding:24px !important}
+  /* four cards across is a 265px column at 1440 and a 90px one at 390, so the commercial grid
+     has to collapse with the rest */
+  .grid.c4{grid-template-columns:minmax(0,1fr)}
+  /* the stats band is the one c4 that should stay multi-column on a phone: four short figures
+     stacked one per row is four screens of nothing */
+  .sec-sm.dark .grid.c4{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* reduced motion means gentler, not zero: movement is dropped, colour and opacity
+   transitions are left alone. A blanket *{...!important} reset is banned. */
+@media (prefers-reduced-motion:reduce){
+  .btn:hover,.btn-ghost:hover,.btn-onDark:hover{transform:none !important}
+}
+
+
+/* ---- header, three stages ------------------------------------------------------
+   The full desktop header needs about 1186px (logo 76 + nav 683 + phone 137 + button 138
+   + gaps 88 + page padding 64) and .wrap caps at 1180, so it never truly fits below that.
+   The nav carries white-space:nowrap on its links and min-width:0 on its box, which means
+   it cannot wrap and cannot shrink: it just paints over the phone number. Measured
+   collisions ran from 701px to about 1120px before this. */
+
+/* 920 to 1199: keep the nav, drop the phone text and the quote button for the compact
+   call icon, and tighten the nav's own metrics. */
+@media (max-width:1199px) and (min-width:920px){
+  .hdr-cta{display:none !important}
+  .hdr-call{display:inline-flex !important}
+  .hdr-nav{gap:14px !important}
+  .hdr-nav a{font-size:14px !important}
+}
+/* 919 and below: the nav no longer fits at any sane size, so it becomes the burger.
+   margin-left:auto matters. The header row is justify-content:space-between over three
+   children, and once the nav and the CTA group are hidden the call button is the MIDDLE
+   child of logo / call / burger, so it parked itself in the centre of the bar and read as
+   a mistake. Pushing it right groups the two controls where a thumb expects them. */
+@media (max-width:919px){
+  .hdr-nav{display:none !important}
+  .hdr-cta{display:none !important}
+  .burger{display:block !important}
+  .hdr-call{display:inline-flex !important;margin-left:auto}
+}
+@media (max-width:700px){
+  .wrap.grid{grid-template-columns:minmax(0,1fr) !important}
+  article[style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr) !important;direction:ltr !important}
+  .tile{align-items:flex-start}
+  .hero-scrim{background:rgba(245,248,250,.985) !important}
+  .cta-rail .wrap{padding:16px 20px !important}
+  .cta-rail .btn{width:100%}
+}
+@media (min-width:701px){ .hero-photo{display:none} }
+/* one long word must never be able to push a grid track past the viewport */
+.grid > *{min-width:0}
+
+/* The copy column's display lives here, not on the element, because the mobile rule below has to
+   override it with display:contents. An INLINE display:flex beats a stylesheet rule that has no
+   !important, which is why the first attempt at the mobile reorder silently did nothing: the
+   wrapper stayed a flex item and the form stayed last. */
+.hero-copy{display:flex;flex-direction:column}
+/* The hero is three areas rather than two columns, so the estimate form can sit second on a
+   phone instead of below the chips and the rating marks. Desktop is unchanged. */
+/* On a phone the estimate form must not sit under the headline, the lede, four trust chips and
+   two rating marks; that is about 800px down and the whole conversion argument of this page is
+   that the ask is above the fold. display:contents dissolves the copy wrapper so its children
+   become grid items alongside the form, which can then be ordered around them. The wrapper is
+   presentational and carries no role, so nothing is lost from the accessibility tree. */
+@media (max-width:900px){
+  .hero-h{grid-template-columns:minmax(0,1fr) !important}
+  .hero-copy{display:contents}
+  .hero-copy > :nth-child(1){order:1}   /* kicker   */
+  .hero-copy > :nth-child(2){order:2}   /* headline */
+  .hero-copy > :nth-child(3){order:3}   /* lede     */
+  .hero-copy > :nth-child(5){order:4}   /* phone    */
+  #quote{order:5}                       /* the ask  */
+  .hero-copy > :nth-child(4){order:6}   /* chips    */
+  .hero-copy > :nth-child(5){margin-top:24px !important}
+  #quote{margin-top:8px}
+  /* the two-coats header is heading-left / lede-right and has no room for that below 900 */
+  .tc-head{grid-template-columns:minmax(0,1fr) !important;gap:24px !important;align-items:start !important}
+}
+@media (max-width:700px){
+  section[style*="padding:88px 0 88px"]{padding:48px 0 64px !important}
+  /* MOBILE_CSS already sets the mobile h1; restating it at a second value just added
+     a size to the scale for no rendering difference. */
+  .tc-word .solid{white-space:normal}
+  /* Four claims took four lines at 390. Two up is the same information in half the height,
+     which matters here because everything below it is the form. */
+  .hero-chips{grid-template-columns:1fr 1fr !important;justify-content:stretch !important;
+              gap:8px;margin-top:24px !important}
+  .hero-chips .chip{padding:8px 12px;font-size:12px;justify-content:center;text-align:center}
+}
