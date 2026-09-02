@@ -543,7 +543,9 @@ section.bwsec > .wrap{position:relative;z-index:2}
 /* the sweep is sized for the desktop heading band; below the services breakpoint the
    headings reflow to more lines and the band is pulled up and shortened to match */
 @media (max-width:900px){
-  .bw > span{height:180px !important;top:18px !important}
+  /* the columns stack here, so a sweep that cleared the copy beside a heading at
+     1440 now sits directly above it. It is pulled tight to the heading itself. */
+  .bw > span{height:132px !important;top:14px !important}
 }
 @media (prefers-reduced-motion:reduce){
   /* nothing here moves, so there is nothing to reduce; the rule exists to stop a
