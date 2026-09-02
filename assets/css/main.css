@@ -526,6 +526,31 @@ ul{margin:0;padding:0;list-style:none}
 /* one long word must never be able to push a grid track past the viewport */
 .grid > *{min-width:0}
 
+/* ---- section brushwork, direction A "Wash" -------------------------------------
+   A broad dry-brush sweep behind each section heading, one muted paint colour per
+   section. The stroke is a child of the section and always paints BEHIND the
+   content: the wrap carries z-index 2 against the stroke's 0. It is decorative and
+   marked aria-hidden, so it is not announced and it holds no meaning.
+
+   The two dark rooms, the service areas and the stats band, take none: a light tint
+   of a paint colour brushed across near black reads as a smudge on the two blocks
+   carrying proof. */
+section.bwsec{position:relative;isolation:isolate}
+section.bwsec > .wrap{position:relative;z-index:2}
+.bw{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;line-height:0}
+.bw > span{position:absolute;transform-origin:left center}
+.bw svg{display:block;width:100%;height:100%;overflow:visible}
+/* the sweep is sized for the desktop heading band; below the services breakpoint the
+   headings reflow to more lines and the band is pulled up and shortened to match */
+@media (max-width:900px){
+  .bw > span{height:180px !important;top:18px !important}
+}
+@media (prefers-reduced-motion:reduce){
+  /* nothing here moves, so there is nothing to reduce; the rule exists to stop a
+     future edit adding motion to a decorative layer without thinking about it */
+  .bw{transition:none;animation:none}
+}
+
 /* The copy column's display lives here, not on the element, because the mobile rule below has to
    override it with display:contents. An INLINE display:flex beats a stylesheet rule that has no
    !important, which is why the first attempt at the mobile reorder silently did nothing: the
