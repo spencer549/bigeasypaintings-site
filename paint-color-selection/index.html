@@ -13,7 +13,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="../assets/css/main.css">
 <link rel="stylesheet" href="../assets/css/page-kit.css">
-<link rel="stylesheet" href="../assets/css/map.css">
+<!-- CASCADE ORDER MATTERS AND MUST MATCH THE THEME. functions.php enqueues
+     main, then page-kit, then the page's own sheet, then map.css LAST, so map.css
+     wins where the two touch the same selector. The preview's own <style> is the
+     equivalent of that per-page sheet, so it goes BEFORE map.css.
+
+     With it after, .wk-map's light treatment beat .areamap's dark panel and the
+     service pages rendered the map inverted: a white panel with dark water,
+     against staging's dark panel with light water. Same SVG, same map.css, same
+     classes, and every content check passed, because only the order differed. -->
 <style>
 
 /* ---- the standalone pages --------------------------------------------------
@@ -89,6 +97,7 @@
 }
 
 </style>
+<link rel="stylesheet" href="../assets/css/map.css">
 </head>
 <body class="bep">
 <div class="page">
