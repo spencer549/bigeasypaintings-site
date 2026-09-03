@@ -310,6 +310,179 @@ ul{margin:0;padding:0;list-style:none}
   .stat-marks{margin-top:32px;padding-top:24px}
 }
 
+/* ============================================================================
+   The map's colours are TOKENS, so one SVG serves the dark band and the light one.
+   Spencer picked direction A for the homepage and asked for it off the dark ground,
+   and every value the map was drawn with is wrong on paper.
+
+   Measured on the light theme, all against #cdd9e2 water:
+     water labels  #46596a  5.05:1   (they are 12 to 14px, so they need 4.5)
+     ground pins   #3d5b58 / #3c5b73 / #8a4830, 5.2 to 6.1:1
+   The amber pin is NOT used on paper: it measures 1.45:1, under the 3:1 a graphical
+   object needs.
+   ========================================================================== */
+.mp{
+  --mp-water:#2f4453; --mp-coast:#20313d; --mp-road:#3c4650; --mp-cross:#59636d;
+  --mp-pin:#ffc233; --mp-pin-ring:#16181c; --mp-ink:#fff; --mp-halo:#16181c;
+  /* #95a1ad measured 3.85:1 on the #2f4453 water at 11px, so the DARK theme needed the
+     same lift the light one did. #b3bec8 measures 5.36. */
+  --mp-label:#a6b5c1; --mp-road-label:#b3bec8; --mp-glow:#ffc233;
+}
+.mp-light{
+  --mp-water:#cdd9e2; --mp-coast:#9fb2bf; --mp-road:#c6ced5; --mp-cross:#a4b0ba;
+  --mp-pin:#8a5c00; --mp-pin-ring:#fff; --mp-ink:#16181c; --mp-halo:#fff;
+  --mp-label:#46596a; --mp-road-label:#3f4d59; --mp-glow:#c78500;
+  /* #5d6b78 measured 2.47:1 for the Causeway label on the #cdd9e2 water. At 10px it
+     needs 4.5; #3f4d59 measures 6.05. The type also goes 10 to 11px. */
+}
+.mp .mp-water{fill:var(--mp-water);stroke:var(--mp-coast)}
+.mp .mp-chan,.mp .mp-river{fill:none;stroke:var(--mp-water)}
+.mp .mp-road{fill:none;stroke:var(--mp-road)}
+.mp .mp-cross{stroke:var(--mp-cross)}
+
+.areamap{display:flex;flex-direction:column;height:100%;min-height:0;margin:0;
+  background:#1b2026;border:1px solid rgba(255,255,255,.14);border-radius:8px;overflow:hidden}
+/* no padding: the clipped lakes, the river and the roads are supposed to reach the frame
+   edge, and an inset made them look like a drawing error rather than a crop. */
+.areamap .mp,.wk-map .mp{flex:1 1 auto;min-height:0;width:100%;display:block}
+.mp .mp-pin{fill:var(--pin,var(--mp-pin));stroke:var(--mp-pin-ring);stroke-width:2;
+  transition:r 220ms var(--ease-out),stroke-width 220ms var(--ease-out)}
+.mp .mp-hub-r{fill:none;stroke:var(--mp-glow);stroke-width:1.5;opacity:.55}
+.mp .mp-t{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:15px;font-weight:600;fill:var(--mp-ink);
+  paint-order:stroke;stroke:var(--mp-halo);stroke-width:3.5;stroke-linejoin:round;
+  transition:fill 200ms var(--ease-out)}
+.mp .mp-hub{font-size:16px;font-weight:700}
+/* #93a3b0 measured 3.91:1 against the #2f4453 water it sits on, and these are 12 to 14px,
+   so they need 4.5. Lightened until the measured value cleared it on both grounds. */
+.mp .mp-w{font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:14px;font-weight:500;
+  fill:var(--mp-label);letter-spacing:.04em}
+.mp .mp-sm{font-size:12px}
+/* a HALO in the water colour. The label rides its own bridge and the line is the
+   ground it was being measured against, 3.93:1; offsetting it did not clear a
+   diagonal stroke under vertical type. With the halo its ground is the water, 6.05. */
+.mp .mp-road-l{fill:var(--mp-road-label);letter-spacing:.12em;text-transform:uppercase;
+  font-size:11px;paint-order:stroke;stroke:var(--mp-water);stroke-width:3.5;
+  stroke-linejoin:round}
+
+/* ---- the halo. A hit target and a highlight, invisible until it is one or the other. ---- */
+.mp .mp-halo{fill:var(--mp-glow);opacity:0;transition:opacity 220ms var(--ease-out)}
+.mp .mp-g{cursor:pointer}
+.mp .mp-g.on .mp-halo{opacity:.22}
+.mp .mp-g.on .mp-pin{r:8;stroke-width:2.6}
+.mp .mp-g.on .mp-t{fill:var(--mp-glow)}
+/* a ground filter DIMS what is not in it and never hides it, so nothing leaves the document */
+.mp.filtered .mp-g{opacity:.26}
+.mp.filtered .mp-g.in{opacity:1}
+.mp .mp-g{transition:opacity 260ms var(--ease-out),transform 420ms var(--ease-out)}
+
+/* ---- draw-in. The coast, the river and the roads ink themselves once, on scroll. ----
+   stroke-dasharray comes from the MEASURED path length: a guessed length either snaps
+   at the end or never finishes. */
+.mp .mp-water,.mp .mp-river,.mp .mp-road{
+  transition:stroke-dashoffset 1200ms cubic-bezier(.22,1,.36,1),
+             fill-opacity 700ms ease 450ms}
+.mp .mp-hubg{transition:opacity 420ms var(--ease-out),transform 420ms var(--ease-out)}
+[data-draw="pending"] .mp-water,
+[data-draw="pending"] .mp-river,
+[data-draw="pending"] .mp-road{stroke-dashoffset:var(--len);fill-opacity:0}
+[data-draw="pending"] .mp-g,
+[data-draw="pending"] .mp-hubg{opacity:0;transform:translateY(-9px)}
+
+/* reduced motion means gentler, never zero: the ink still lands, it just does not travel.
+   The preview frame overrides this with data-motion="force". */
+@media (prefers-reduced-motion:reduce){
+  html:not([data-motion="force"]) .mp .mp-water,
+  html:not([data-motion="force"]) .mp .mp-river,
+  html:not([data-motion="force"]) .mp .mp-road{transition:fill-opacity 400ms ease}
+  html:not([data-motion="force"]) [data-draw="pending"] .mp-water,
+  html:not([data-motion="force"]) [data-draw="pending"] .mp-river,
+  html:not([data-motion="force"]) [data-draw="pending"] .mp-road{stroke-dashoffset:0}
+  html:not([data-motion="force"]) [data-draw="pending"] .mp-g,
+  html:not([data-motion="force"]) [data-draw="pending"] .mp-hubg{transform:none}
+}
+
+.areamap figcaption{flex:0 0 auto;padding:14px 18px;font-size:13px;line-height:1.5;color:#c4c8cd;
+  border-top:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)}
+.areamap figcaption b{color:#fff;font-weight:600}
+@media (max-width:900px){
+  .areamap{height:auto}
+  .areamap .mp,.wk-map .mp{height:430px;flex:0 0 auto}
+  /* SVG type scales with the viewBox, so 15px inside a 573-tall box renders at about 9 CSS px
+     on a phone. These sizes put it back near 15. */
+  .mp .mp-t{font-size:22px;stroke-width:5}
+  .mp .mp-hub{font-size:23px}
+  .mp .mp-w{font-size:20px}
+  .mp .mp-sm{font-size:17px}
+  .mp .mp-road-l{font-size:15px}
+  .mp .mp-pin{r:7.5}
+  .mp .mp-g.on .mp-pin{r:10}
+  .mp .mp-halo{r:20}
+}
+
+/* the ground colouring has a paper value too */
+.mp-light .mp-pin{fill:var(--pin-l,var(--mp-pin))}
+
+/* ============================================================================
+   THE SERVICE AREA BAND, direction A, picked 2026-09-03 and running on paper.
+   The dark band's ground colours measure 1.7 to 2.1:1 here, so every one of them
+   takes its `colourLight` value instead.
+   ========================================================================== */
+.wk .wk-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;
+  align-items:end}
+.wk .wk-head .lede{margin:0;max-width:58ch}
+.wk-split{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:48px;
+  align-items:stretch}
+.wk-gs{display:flex;flex-direction:column;gap:20px;min-width:0}
+.wk-g{background:#fff;border:1px solid var(--line);border-radius:8px;padding:22px 24px}
+.wk-gl{margin:0;background:none;border:0;padding:0 0 8px;cursor:pointer;text-align:left;
+  display:flex;align-items:baseline;gap:10px;width:100%;
+  font:800 13px/1 'Archivo',system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;
+  border-bottom:2px solid transparent;transition:border-color 160ms ease}
+.wk-gl[aria-pressed="true"]{border-bottom-color:currentColor}
+.wk-gf{color:var(--mut);font-weight:700;letter-spacing:.06em;font-size:11px}
+.wk-gn{margin:12px 0 0;color:var(--mut);font-size:15px;line-height:1.6}
+.wk-ts{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.wk-t{display:inline-flex;align-items:center;gap:9px;padding:10px 14px;border-radius:6px;
+  background:var(--alt);border:1px solid var(--line);color:var(--navy);font-weight:600;
+  font-size:15px;text-decoration:none;
+  transition:background 160ms ease,border-color 160ms ease,color 160ms ease}
+.wk-dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+@media (hover:hover) and (pointer:fine){
+  .wk-t:hover{background:#fff;border-color:var(--blue)}
+}
+/* the highlight the map sends back when one of its pins is hovered */
+.wk-t.on{background:#f0a500;border-color:#f0a500;color:#17191c}
+.wk-g.dim{opacity:.34;transition:opacity 220ms var(--ease-out)}
+/* THE MAP STAYS DARK inside the light band. Spencer's call, 2026-09-03: the section off
+   the dark ground, the map on it. So the panel keeps .areamap's own #1b2026 treatment and
+   the SVG keeps the dark palette; only the band around it is paper. A dark panel on a light
+   section also gives the map an edge, which is what stops it reading as a washed-out
+   diagram. */
+.wk-map{margin:0}
+.wk-cta{display:flex;gap:32px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  margin-top:48px;padding-top:28px;border-top:1px solid var(--line)}
+.wk-cta p{margin:0;max-width:58ch;color:var(--mut)}
+.wk-ctab{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+.wk-ctab .tel{display:inline-flex;align-items:center;gap:8px;font-weight:700}
+.wk-live{font-size:12px;color:var(--mut);margin:12px 0 0}
+@media (max-width:960px){
+  .wk .wk-head{grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}
+  .wk-split{grid-template-columns:minmax(0,1fr)}
+}
+
+/* The FAQ header row bottom-aligns two similar masses; the questions run full width beneath.
+   See sec_faq_anim for why this is not the old intro-beside-accordion split. */
+/* start, not end. Bottom-aligning the pair pushed the heading 57px down the section, which
+   walked it out from under its brushwork sweep; the sweep is positioned from the section top. */
+.faq-top{align-items:start}
+.faq-call{padding:20px 24px;border:1px solid var(--line);border-left:3px solid var(--blue);
+  border-radius:6px;background:#fff}
+.faq-list{border-top:1px solid var(--line)}
+.faq-row{border-bottom:1px solid var(--line);padding:22px 0}
+.faq-row .accbtn{gap:32px}
+.faq-a{padding-top:14px;max-width:78ch}
+
+
 
 :root{
   --ease-out:cubic-bezier(0.23,1,0.32,1);
