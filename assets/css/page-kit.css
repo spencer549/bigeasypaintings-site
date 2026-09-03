@@ -1,0 +1,102 @@
+/* ============================================================================
+   Big Easy Paintings, shared page kit STYLESHEET.
+
+   The companion to preview-page-kit.js. The markup for the header, the mobile
+   panel, the inner-page banner, the brushwork, the estimate block, the reviews
+   and the footer already lives once, in the JS kit. Until 2026-09-03 the CSS for
+   all of it was copy-pasted into each preview's own <style> block, and the
+   comment in preview-service-areas.html said so out loud: "Lives in both preview
+   files because they carry their own style blocks."
+
+   Two copies is a warning. The location page would have been a third, and it
+   went wrong immediately: the mobile nav panel rendered 100px tall and OPEN over
+   the banner, because the one rule that closes it was not carried across. That
+   is the same defect the hub round already found and fixed once.
+
+   So this file holds everything the kit's own markup needs. A preview loads
+   main.css (theme B), then this, then its own page-specific block.
+
+   NOTHING PAGE-SPECIFIC BELONGS HERE. If a rule only styles one page's own
+   sections, it stays in that page's block.
+   ========================================================================== */
+
+/* ---- brushwork ----------------------------------------------------------- */
+/* The sweep is anchored to the HEADING BLOCK, never the section, it runs behind
+   the content, and it dries out before any column of body copy. */
+section.bwsec{position:relative;isolation:isolate;overflow:hidden}
+section.bwsec > .wrap{position:relative;z-index:2}
+.hbwrap{position:relative;isolation:isolate}
+.hbwrap > .kick,.hbwrap > h2,.hbwrap > h3{position:relative;z-index:2}
+.bw{position:absolute;inset:-20px 0 0 0;overflow:hidden;pointer-events:none;z-index:0;line-height:0}
+.bw > span{position:absolute;top:50%;transform-origin:center center}
+.bw svg{display:block;width:100%;height:100%;overflow:visible}
+@media (max-width:900px){.bw > span{height:72px !important;margin-top:-36px !important}}
+
+/* ---- banner parts -------------------------------------------------------- */
+.crumb{font-size:13px;color:var(--mut);margin-bottom:18px}
+.crumb a{color:var(--blue-d);font-weight:600}
+.hublede{font-size:20px;line-height:1.55;color:var(--mut);max-width:60ch;margin-top:20px}
+.ctas{display:flex;gap:16px;flex-wrap:wrap;margin-top:32px}
+.btn-inline{display:inline-flex}
+.trustbar{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.trustbar .chip{gap:7px}
+
+/* ---- the shared inner-page banner ---------------------------------------- */
+/* One treatment for every inner page, so /services/, /service-areas/ and the ten
+   location pages all open the same way. Spencer's call, 2026-09-02. */
+.pagehero{background:var(--navy);color:#fff;position:relative;overflow:hidden;isolation:isolate}
+.pagehero .wrap{position:relative;z-index:2}
+.pagehero img.hb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.42}
+.pagehero .hv{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(96deg,rgba(18,20,23,.95) 0%,rgba(18,20,23,.86) 42%,rgba(18,20,23,.52) 100%)}
+.pagehero h1{color:#fff;font-size:clamp(40px,5.2vw,64px)}
+.pagehero .crumb{color:#9aa3ad}
+.pagehero .crumb a{color:#ffc233}
+.pagehero .hublede{color:#c4c8cd}
+
+/* ---- reviews ------------------------------------------------------------- */
+.revhead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.ratings{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.ratings img{height:44px;width:auto}
+/* no avatar. The homepage pairs each testimonial with a clip-art portrait whose
+   alt text calls it a real person, which is an open defect on that page. */
+.rev{margin:0;background:#fff;border:1px solid var(--line);border-radius:8px;padding:28px;
+  display:flex;flex-direction:column}
+.rev blockquote{margin:0;color:var(--ink);font-size:17px;line-height:1.6;flex:1}
+.rev blockquote::before{content:"“";display:block;font:800 44px/0.9 'Archivo',Georgia,serif;
+  color:#f0a500;margin-bottom:12px}
+.rev figcaption{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);
+  font-weight:700;color:var(--navy)}
+
+/* ---- page chrome --------------------------------------------------------- */
+/* Header and footer are the shipped ones; what is added here is the current-page
+   mark and a mobile panel that actually opens. */
+.sahdr{background:#fff;border-bottom:1px solid var(--line);position:relative;z-index:20}
+.hdr-nav a[aria-current="page"]{color:var(--navy);box-shadow:inset 0 -3px 0 #f0a500;padding-bottom:3px}
+/* closed by default and only ever opened by a click. A nav panel that renders
+   OPEN over the hero was one of the four defects found on the hub round, and it
+   came straight back on the location page when this rule was not carried over. */
+.mnav{display:none;border-top:1px solid var(--line);background:#fff}
+.mnav[data-open="true"]{display:block}
+.mnav .wrap{padding-top:8px;padding-bottom:20px}
+.mnav a{display:block;padding:14px 0;border-bottom:1px solid var(--line);
+  font-weight:600;font-size:16px;color:var(--navy)}
+.mnav a[aria-current="page"]{color:var(--navy);box-shadow:inset 3px 0 0 #f0a500;padding-left:12px}
+.mnav a.btn{border-bottom:0;padding:16px 32px;color:#17191c;justify-content:center}
+@media (min-width:920px){.mnav{display:none !important}}
+
+/* ---- the estimate block -------------------------------------------------- */
+.qgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,0.92fr);gap:64px;align-items:start}
+.qform{background:#fff;border:1px solid var(--line);border-radius:8px;padding:28px;
+  box-shadow:0 1px 2px rgba(22,24,28,.05),0 12px 32px rgba(22,24,28,.08)}
+.qform h3{font-size:24px}
+.qlist li{padding:14px 0;border-top:1px solid var(--line);color:var(--ink);
+  display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;align-items:start}
+.qlist li::before{content:"";width:9px;height:9px;border-radius:50%;background:#f0a500;
+  margin-top:9px;margin-left:6px}
+@media (max-width:940px){.qgrid{grid-template-columns:minmax(0,1fr);gap:40px}}
+
+/* reduced motion means gentler, never zero: colour and opacity stay, movement goes */
+@media (prefers-reduced-motion: reduce){
+  .btn:hover{transform:none}
+}
