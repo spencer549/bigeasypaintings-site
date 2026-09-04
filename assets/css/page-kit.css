@@ -82,6 +82,43 @@ section.bwsec > .wrap{position:relative;z-index:2}
 .mnav a{display:block;padding:14px 0;border-bottom:1px solid var(--line);
   font-weight:600;font-size:16px;color:var(--navy)}
 .mnav a[aria-current="page"]{color:var(--navy);box-shadow:inset 3px 0 0 #f0a500;padding-left:12px}
+
+/* ---- header nav dropdowns (Services, Service Areas) ----------------------
+   Copied verbatim from the WordPress theme's main.css, which had this and
+   this file did not (added there directly on 2026-09-04, never ported back).
+   Two ways in, so it works with or without JS and with or without a pointer:
+   :focus-within opens it for keyboard tabbing with zero script, :hover is
+   gated to real pointers only so a tap does not leave it stuck open, and the
+   hdr-drop-btn is the touch/no-JS fallback (inert here since this kit ships
+   no JS for it; a tap still reaches the hub page through the link itself). */
+.hdr-drop{position:relative;display:inline-flex;align-items:center}
+.hdr-drop > a{display:inline-flex;align-items:center;gap:4px}
+.hdr-caret{transition:transform 160ms var(--ease-out);flex:0 0 auto}
+.hdr-drop-btn{display:none;background:none;border:0;padding:4px;margin-left:-6px;
+  color:var(--navy);cursor:pointer;align-items:center}
+.hdr-drop-panel{position:absolute;top:100%;left:0;margin-top:14px;min-width:200px;
+  background:#fff;border:1px solid var(--line);border-radius:8px;
+  box-shadow:0 1px 2px rgba(22,24,28,.06),0 16px 32px rgba(22,24,28,.14);
+  padding:8px;list-style:none;
+  opacity:0;visibility:hidden;transform:translateY(-6px);
+  transition:opacity 160ms var(--ease-out),transform 160ms var(--ease-out),visibility 160ms}
+.hdr-drop-panel.hdr-drop-panel-wide{min-width:420px;column-count:2;column-gap:4px}
+.hdr-drop-panel a{display:block;padding:9px 12px;border-radius:5px;font-size:14px;
+  font-weight:600;color:var(--ink);white-space:nowrap;break-inside:avoid}
+.hdr-drop-panel a:hover,.hdr-drop-panel a:focus-visible{background:var(--alt);color:var(--navy)}
+.hdr-drop:focus-within .hdr-drop-panel{opacity:1;visibility:visible;transform:translateY(0)}
+.hdr-drop:focus-within .hdr-caret{transform:rotate(180deg)}
+@media (hover:hover) and (pointer:fine){
+  .hdr-drop:hover .hdr-drop-panel{opacity:1;visibility:visible;transform:translateY(0)}
+  .hdr-drop:hover .hdr-caret{transform:rotate(180deg)}
+  .hdr-drop-btn{display:none !important}
+}
+@media (hover:none),(pointer:coarse){
+  .hdr-drop-btn{display:inline-flex}
+}
+@media (prefers-reduced-motion: reduce){
+  .hdr-caret,.hdr-drop-panel{transition:none}
+}
 .mnav a.btn{border-bottom:0;padding:16px 32px;color:#17191c;justify-content:center}
 @media (min-width:920px){.mnav{display:none !important}}
 
