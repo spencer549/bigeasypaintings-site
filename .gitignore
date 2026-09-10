@@ -1,0 +1,6 @@
+
+# The frozen LIVE reference for gate_improved_home.mjs. It lives HERE so its
+# relative assets/ paths resolve, and it is ignored so it never reaches the
+# public preview.
+_live-mirror-home.html
+_live-mirror-assets/
