@@ -116,6 +116,13 @@ section.bwsec > .wrap{position:relative;z-index:2}
 @media (hover:none),(pointer:coarse){
   .hdr-drop-btn{display:inline-flex}
 }
+/* the touch route in. assets/js/chrome.js sets data-open on the .hdr-drop when
+   the caret button is tapped; without this rule that attribute changes nothing
+   and the panel stays shut on every touch screen. Added 2026-09-09 with the
+   script, because the two are one mechanism and shipping either alone is a
+   dropdown that cannot be opened by finger. */
+.hdr-drop[data-open="true"] .hdr-drop-panel{opacity:1;visibility:visible;transform:translateY(0)}
+.hdr-drop[data-open="true"] .hdr-caret{transform:rotate(180deg)}
 @media (prefers-reduced-motion: reduce){
   .hdr-caret,.hdr-drop-panel{transition:none}
 }
@@ -137,3 +144,63 @@ section.bwsec > .wrap{position:relative;z-index:2}
 @media (prefers-reduced-motion: reduce){
   .btn:hover{transform:none}
 }
+
+/* ==========================================================================
+   DARK SECTIONS ON INNER PAGES  (2026-09-10)
+
+   main.css already turns type white inside .dark. What it does NOT do is deal
+   with the two things a section carries that have their own light ground: a
+   card, and the decorative brush swash behind a heading. Both go wrong the
+   moment a section is darkened, and both go wrong SILENTLY:
+
+     - .coat and .condcard set their own background (#fff and --alt). Under
+       .dark the h3 turns #fff and the paragraph #c4c8cd, so the card renders
+       white text on a white card. Nothing errors and a section-level contrast
+       walk still reports the section's own navy as the ground.
+     - .bw is a pale coloured swash painted BEHIND the heading. On paper it
+       lifts the heading; on navy it sits under white type and drops the
+       contrast instead.
+
+   So cards get a translucent white ground on dark, and the swash is suppressed
+   there, because a dark section already carries its colour in the ground.
+   ========================================================================== */
+section.dark .bw{display:none}
+
+section.dark .coat,
+section.dark .condcard{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.20)}
+section.dark .coat h3,
+section.dark .condcard h3{color:#fff}
+section.dark .coat p,
+section.dark .condcard p,
+section.dark .coat .mut,
+section.dark .condcard .mut{color:#c9ced4}
+section.dark .coatb .kick{color:#ffc233}
+/* .30 measured 2.68:1 against the card ground, under the 3.0 floor a 30px
+   run has to clear. Faint is the intent; illegible is not. */
+section.dark .condcard .cnum{color:rgba(255,255,255,.42)}
+
+/* .why is a rule-topped column, not a card, so it only needs its rule back */
+section.dark .why{border-top-color:rgba(255,255,255,.34)}
+
+/* DELETED 2026-09-10, same day it was added. It read
+     section.dark + section, section.dark{border-top-color:rgba(255,255,255,.16)}
+   which is (0,1,1) and therefore outranks page-matrix.css's own
+     .fpdark{border-top:3px solid #f0a500}  and  .closeA{border-top:3px solid #f0a500}
+   at (0,1,0). The matrix pages load page-kit.css too, so a rule written for the
+   inner pages reached all 54 of them and turned 108 deliberate amber accents
+   grey, verified by sampling the rendered pixels with the rule in and out
+   (rgb(240,165,0) -> rgb(59,61,64)). The matrix pages were explicitly out of
+   scope and no PHP of theirs was touched, which is exactly why this was easy to
+   miss: nothing in the diff pointed at them.
+
+   The hairline it was softening is cosmetic. It is not worth a selector that can
+   reach a page type this file is not supposed to style. If a dark section ever
+   needs its own top rule, give that SECTION a class and target the class. */
+
+/* the ghost button reads as a thin dark outline; on navy it needs the on-dark
+   treatment even when a caller forgets to ask for it */
+section.dark .btn-ghost{border-color:rgba(255,255,255,.55);color:#fff}
+section.dark .btn-ghost:hover{background:rgba(255,255,255,.14);border-color:#fff}
+section.dark .sm,
+section.dark .subhead{color:#c9ced4}
+section.dark a:not(.btn){color:#ffc233}

@@ -81,7 +81,7 @@
     { hex: '#3E5240', name: 'Cypress Shade', mood: 'grounding' },
     { hex: '#93A487', name: 'Sage Porch', mood: 'grounding' },
     { hex: '#EDE7DC', name: 'Shotgun White', mood: 'timeless' },
-    { hex: '#B7AFA2', name: 'French Quarter Grey', mood: 'timeless' },
+    { hex: '#B7AFA2', name: 'French Quarter Gray', mood: 'timeless' },
     { hex: '#A0917E', name: 'Warm Greige', mood: 'timeless' }
   ];
 

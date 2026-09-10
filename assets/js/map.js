@@ -76,7 +76,7 @@
             var name = b.getAttribute('data-label') || b.textContent.trim();
             live.textContent = active
               ? (b.getAttribute('data-count') + ' towns shown, ' + name)
-              : 'All ten towns shown.';
+              : 'All twelve towns shown.';
           }
         });
       });
