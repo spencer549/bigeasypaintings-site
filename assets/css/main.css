@@ -974,7 +974,9 @@ a.btn-o:hover,a.btn-g:hover{color:#fff;text-decoration:none}
 .qf-or{color:rgba(255,255,255,.72);font-size:13px;text-align:center;margin:12px 0 0}
 .qf-or a{color:#fff;font-weight:700}
 /* the GHL banner form draws its own panel inside the iframe */
-.qf-ghl{border-radius:4px;overflow:hidden}
+/* the frame's edge stays put while the form scrolls inside it, so the panel border
+   lives here; the dark panel color itself is the Banner Form's own GHL CSS */
+.qf-ghl{border-radius:4px;overflow:hidden;border:1px solid rgba(255,255,255,.18)}
 /* Every GHL form is a fixed-height box that scrolls INSIDE, the bigeasypatios.com
    pattern (Spencer, 2026-09-14: "it should be scrolling form"). !important because
    form_embed.js writes the form's full height into the iframe's inline style. */
