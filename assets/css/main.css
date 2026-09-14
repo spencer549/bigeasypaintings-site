@@ -923,16 +923,16 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
   border-radius:999px}
 .h-badges li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber)}
 /* The live site's four trust seals, in the slot the "Recent work" thumbnails held
-   until 2026-09-14. They are drawn for a WHITE ground (the Google mark's
-   "REVIEWS" is black type), so they sit on their own light plate and never on
-   the photograph. Heights stay at or under each file's native pixels (Google
-   141x81, Facebook 208x75, the two seals 82 and 86 square), so nothing is scaled
-   up past its own resolution. */
-.h-seals{display:inline-flex;flex-wrap:wrap;align-items:center;gap:12px 26px;
-  background:rgba(255,255,255,.97);border-radius:4px;padding:12px 22px;
-  box-shadow:0 18px 40px -26px rgba(0,0,0,.8)}
+   until 2026-09-14. They sat on a white plate at first, because the Google
+   mark's "REVIEWS" is black type. Spencer wants the marks alone, so the plate
+   is gone and the hero uses google-rating-onDark.png, the same file with only
+   that line of type recoloured white (canvas/make_seal_on_dark.py). A soft
+   shadow lifts the marks off the photograph. Heights stay at or under each
+   file's native pixels (Google 141x81, Facebook 160x58, the two seals 82 and 86
+   square), so nothing is scaled up past its own resolution. */
+.h-seals{display:inline-flex;flex-wrap:wrap;align-items:center;gap:12px 28px}
 .h-seals li{display:flex;align-items:center}
-.h-seals img{width:auto}
+.h-seals img{width:auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.45))}
 .h-seals .s-g{height:50px}
 .h-seals .s-fb{height:42px}
 .h-seals .s-q{height:56px}
@@ -1471,9 +1471,9 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
   .h-chip-sw{height:164px}
   .h-seemore .h-see-tiles{grid-template-columns:repeat(2,1fr)}
   .h-seemore .h-see-tiles figure{height:150px}
-  /* 63 + 83 + 40 + 40 of seal plus gaps and padding is 296px, inside the 320px
-     a 360 viewport leaves, so the plate stays on one line on small phones */
-  .h-seals{gap:10px 14px;padding:10px 14px}
+  /* 63 + 83 + 40 + 40 of seal plus three 16px gaps is 274px, inside the 320px
+     a 360 viewport leaves, so the row stays on one line on small phones */
+  .h-seals{gap:10px 16px}
   .h-seals .s-g{height:36px}
   .h-seals .s-fb{height:30px}
   .h-seals .s-q{height:40px}
@@ -1495,6 +1495,22 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
   font-size:clamp(56px,7vw,102px);line-height:.78;letter-spacing:-.05em;color:var(--ink)}
 .sb-c-l{margin:0 0 .3em;font-family:var(--display);font-weight:800;
   font-size:clamp(16px,1.6vw,24px);line-height:1.02;max-width:8ch;color:var(--ink)}
+/* The right of the amber coat was 700px of empty yellow at 1440 once the band
+   was halved (Spencer: "deadspace here"). It now carries the page's one
+   conversion goal, in the site's existing words. Desktop and tablet only: on a
+   phone "2,500" already fills the width, and the band must stay half height. */
+.sb-c-act{margin-left:auto;align-self:center;display:flex;align-items:center;
+  justify-content:flex-end;gap:12px 24px}
+.sb-c-act p{margin:0;max-width:22ch;font-size:16px;font-weight:600;line-height:1.3;color:var(--ink)}
+.sb-c-btn{background:var(--ink);color:#fff;text-decoration:none;font-family:var(--display);
+  font-weight:800;font-size:15.5px;padding:14px 22px;border-radius:2px;white-space:nowrap;
+  transition:background-color 180ms var(--ease-out)}
+.sb-c-btn:hover{background:#000}
+.sb-c-tel{color:var(--ink);font-family:var(--display);font-weight:800;font-size:17px;
+  white-space:nowrap;text-decoration:underline;text-underline-offset:4px}
+/* measured: the group wraps under the number at 1000px with the line shown and
+   holds one line at 1100, so the line goes at 1040 and below */
+@media (max-width:1040px){.sb-c-act p{display:none}}
 .sb-c-two{position:relative;background:var(--navy);color:#fff;padding:14px 0 26px}
 .sb-c-edge{position:absolute;left:0;bottom:calc(100% - 1px);width:100%;height:26px;
   display:block;fill:var(--navy)}
@@ -1520,6 +1536,7 @@ html.js .sb-c-coat[data-rv].in .sb-c-two{clip-path:inset(-60px 0 0 0);
 }
 @media (max-width:760px){
   .sb-c-one{padding:20px 0 30px}
+  .sb-c-act{display:none}
   .sb-c-edge{height:18px}
   .sb-c-two{padding:8px 0 16px}
   .sb-c-ledger{grid-template-columns:1fr}
