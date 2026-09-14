@@ -1140,7 +1140,10 @@ a.btn-o:hover,a.btn-g:hover{color:#fff;text-decoration:none}
 /* The service card. It kept its shape when the flat paint chip became a
    photograph: same box, same sheen pill, same colour, and the colour now reads
    as a rule under the picture instead of as the whole block. */
-.h-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+/* stretch, not start: every card in a row takes the row's height, so the body's
+   flex:1 paragraph pushes each "Read more" to the same line (Spencer, 2026-09-14:
+   "please make sure this was align with each other") */
+.h-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
 .h-chip{background:var(--paper);border:1px solid var(--line);border-radius:3px;overflow:hidden;
   display:flex;flex-direction:column;
   transition:transform 220ms var(--ease-out),box-shadow 220ms var(--ease-out),
@@ -1442,7 +1445,10 @@ a.btn-o:hover,a.btn-g:hover{color:#fff;text-decoration:none}
 /* back to top. Fixed, bottom right, appears once the hero is behind you and
    never sits over the mobile CTA rail. It is a real <a href="#top"> so it works
    with JavaScript off and lands on the same anchor the logo already uses. */
-.totop{position:fixed;right:22px;bottom:22px;z-index:70;width:48px;height:48px;
+/* bottom LEFT: GHL's chat widget owns the bottom right corner, and its launcher and
+   greeting box sat over this button at both 22px and 96px from the bottom, so a click
+   never reached it (measured with elementFromPoint on staging 2026-09-14) */
+.totop{position:fixed;left:22px;bottom:22px;z-index:70;width:48px;height:48px;
   display:grid;place-items:center;border-radius:50%;text-decoration:none;
   background:var(--navy);color:#fff;border:1px solid rgba(255,255,255,.28);
   box-shadow:0 10px 30px -12px rgba(0,0,0,.55);

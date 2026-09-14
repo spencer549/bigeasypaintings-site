@@ -212,6 +212,30 @@
 </script>
 <script src="https://link.msgsndr.com/js/form_embed.js"></script>
 <script>(function(){var b=document.querySelector('.burger'),m=document.getElementById('mnav');if(!b||!m)return;function s(o){m.setAttribute('data-open',o?'true':'false');b.setAttribute('aria-expanded',o?'true':'false');b.setAttribute('aria-label',o?'Close menu':'Open menu');}b.addEventListener('click',function(){s(m.getAttribute('data-open')!=='true');});document.addEventListener('keydown',function(e){if(e.key==='Escape')s(false);});m.addEventListener('click',function(e){if(e.target.tagName==='A')s(false);});})();</script>
+<style>
+.totop{position:fixed;left:22px;bottom:22px;z-index:70;width:48px;height:48px;display:grid;place-items:center;border-radius:50%;text-decoration:none;background:#16181c;color:#fff;border:1px solid rgba(255,255,255,.28);box-shadow:0 10px 30px -12px rgba(0,0,0,.55);opacity:0;visibility:hidden;transform:translate3d(0,10px,0);transition:opacity 200ms cubic-bezier(.23,1,.32,1),transform 200ms cubic-bezier(.23,1,.32,1),visibility 0s linear 200ms,background-color 180ms ease}
+.totop.is-on{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+.totop svg{width:20px;height:20px;display:block}
+@media (hover: hover) and (pointer: fine){.totop:hover{background:#f0a500;color:#16181c;border-color:#f0a500}}
+@media (prefers-reduced-motion: reduce){.totop{transition:opacity 200ms linear,visibility 0s linear 200ms}.totop.is-on{transform:none}}
+</style>
+<a class="totop" href="#main" aria-label="Back to top" data-totop><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+<script>
+(function () {
+  var b = document.querySelector('[data-totop]');
+  if (!b) return;
+  var t = false;
+  function sync() { t = false; b.classList.toggle('is-on', window.scrollY > window.innerHeight * 0.9); }
+  addEventListener('scroll', function () { if (!t) { t = true; requestAnimationFrame(sync); } }, { passive: true });
+  b.addEventListener('click', function (ev) {
+    ev.preventDefault();
+    window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    var m = document.getElementById('main');
+    if (m) { m.setAttribute('tabindex', '-1'); m.focus({ preventScroll: true }); }
+  });
+  sync();
+})();
+</script>
 <script type="text/plain" data-chat-src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="66c34f67d1bc9ef5f2f3ad71"></script>
 <script>
 (function () {
