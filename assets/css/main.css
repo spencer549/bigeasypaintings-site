@@ -1482,25 +1482,30 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
 /* C  TWO COATS. The band is two coats. An amber first coat holds the headline
    figure at poster size; a navy second coat is brushed over it, dry edge and
    all, and carries the other three as a ruled ledger. The second coat wipes on
-   left to right when it scrolls in, and reduced motion gets a plain fade. */
+   left to right when it scrolls in, and reduced motion gets a plain fade.
+
+   HALF HEIGHT since 2026-09-14, Spencer: "its kinda big pelase reduce it size to
+   half". 511px became about 250 at 1440 and 528 about 260 at 390. Same
+   structure; the figures, the paddings and the roller edge all came down. The
+   amber's bottom padding still has to clear the edge, which overlaps it. */
 .sb-c{position:relative;isolation:isolate}
-.sb-c-one{background:var(--amber);color:var(--ink);padding:58px 0 84px}
-.sb-c-lead{display:flex;align-items:flex-end;gap:10px 30px;flex-wrap:wrap}
+.sb-c-one{background:var(--amber);color:var(--ink);padding:18px 0 46px}
+.sb-c-lead{display:flex;align-items:flex-end;gap:6px 22px;flex-wrap:wrap}
 .sb-c-n{display:block;font-family:var(--display);font-weight:900;
-  font-size:clamp(88px,14vw,204px);line-height:.78;letter-spacing:-.055em;color:var(--ink)}
-.sb-c-l{margin:0 0 .35em;font-family:var(--display);font-weight:800;
-  font-size:clamp(22px,2.5vw,36px);line-height:1.02;max-width:8ch;color:var(--ink)}
-.sb-c-two{position:relative;background:var(--navy);color:#fff;padding:36px 0 66px}
-.sb-c-edge{position:absolute;left:0;bottom:calc(100% - 1px);width:100%;height:46px;
+  font-size:clamp(56px,7vw,102px);line-height:.78;letter-spacing:-.05em;color:var(--ink)}
+.sb-c-l{margin:0 0 .3em;font-family:var(--display);font-weight:800;
+  font-size:clamp(16px,1.6vw,24px);line-height:1.02;max-width:8ch;color:var(--ink)}
+.sb-c-two{position:relative;background:var(--navy);color:#fff;padding:14px 0 26px}
+.sb-c-edge{position:absolute;left:0;bottom:calc(100% - 1px);width:100%;height:26px;
   display:block;fill:var(--navy)}
 .sb-c-edge .dry{opacity:.42}
 .sb-c-ledger{display:grid;grid-template-columns:repeat(3,1fr)}
-.sb-c-ledger li{display:flex;flex-direction:column;gap:10px;padding:6px 32px;
+.sb-c-ledger li{display:flex;flex-direction:column;gap:4px;padding:2px 32px;
   border-left:1px solid rgba(255,255,255,.2)}
 .sb-c-ledger li:first-child{padding-left:0;border-left:0}
 .sb-c-v{display:block;font-family:var(--display);font-weight:800;
-  font-size:clamp(44px,4.6vw,66px);line-height:.95;color:var(--amber)}
-.sb-c-lab{font-size:15.5px;color:rgba(255,255,255,.86)}
+  font-size:clamp(30px,2.9vw,42px);line-height:.95;color:var(--amber)}
+.sb-c-lab{font-size:15px;color:rgba(255,255,255,.86)}
 /* The reveal is observed on the unclipped .sb-c-coat and the CLIP sits on its
    child. It first sat on the observed element itself, and Chrome's
    IntersectionObserver honours a target's own clip-path: clipped to zero width,
@@ -1514,12 +1519,12 @@ html.js .sb-c-coat[data-rv].in .sb-c-two{clip-path:inset(-60px 0 0 0);
   html:not([data-motion="force"]).js .sb-c-coat[data-rv].in .sb-c-two{clip-path:none}
 }
 @media (max-width:760px){
-  .sb-c-one{padding:42px 0 64px}
-  .sb-c-edge{height:30px}
-  .sb-c-two{padding:22px 0 44px}
+  .sb-c-one{padding:20px 0 30px}
+  .sb-c-edge{height:18px}
+  .sb-c-two{padding:8px 0 16px}
   .sb-c-ledger{grid-template-columns:1fr}
   .sb-c-ledger li{flex-direction:row;align-items:baseline;justify-content:space-between;
-    gap:16px;padding:16px 0;border-left:0;border-top:1px solid rgba(255,255,255,.2)}
+    gap:16px;padding:8px 0;border-left:0;border-top:1px solid rgba(255,255,255,.2)}
   .sb-c-ledger li:first-child{border-top:0}
   .sb-c-lab{text-align:right}
 }
