@@ -31,7 +31,10 @@
   var pop = document.getElementById('ghl-pop');
   if (!pop) return;
   var x = pop.querySelector('.ghl-pop-x'), last = null;
-  function close() { pop.hidden = true; document.body.style.overflow = ''; if (last) last.focus(); }
+  /* html.ghl-pop-on hides GHL's chat widget while the dialog is open: at 360x640 its
+     greeting bubble sat over the form's submit button (Opus crosscheck, 2026-09-14) */
+  var root = document.documentElement;
+  function close() { pop.hidden = true; root.classList.remove('ghl-pop-on'); document.body.style.overflow = ''; if (last) last.focus(); }
   document.addEventListener('click', function (ev) {
     var a = ev.target.closest && ev.target.closest('a[href="#estimate"]');
     if (!a) return;
@@ -40,7 +43,7 @@
        dialog and its own toggle later unlocks the page scroll (Opus crosscheck) */
     var t = document.querySelector('[data-navtoggle][aria-expanded="true"]');
     if (t) { t.click(); last = t; }
-    pop.hidden = false; document.body.style.overflow = 'hidden'; x.focus();
+    pop.hidden = false; root.classList.add('ghl-pop-on'); document.body.style.overflow = 'hidden'; x.focus();
   });
   /* keep focus inside the dialog while it is open */
   document.addEventListener('focusin', function (ev) {

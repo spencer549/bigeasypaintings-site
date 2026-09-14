@@ -140,9 +140,10 @@
 <style>
 .ghl-pop{position:fixed;inset:0;z-index:1200;display:grid;place-items:center;padding:20px;background:rgba(12,13,16,.72)}
 .ghl-pop[hidden]{display:none}
+.ghl-pop-on chat-widget{display:none !important}
 .ghl-pop-box{position:relative;width:min(600px,100%);background:#fff;border-radius:6px;box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
 .ghl-pop-body{overflow:hidden;border-radius:6px}
-.ghl-pop-body iframe{display:block;height:min(600px,calc(100svh - 72px)) !important}
+.ghl-pop-body iframe{display:block;height:min(600px,calc(100vh - 72px)) !important;height:min(600px,calc(100svh - 72px)) !important}
 .ghl-pop-x{position:absolute;top:-14px;right:-14px;z-index:2;width:44px;height:44px;display:grid;place-items:center;background:#fff;color:#1b1e22;border:1px solid #e0e0dd;border-radius:50%;box-shadow:0 6px 18px -6px rgba(0,0,0,.5);cursor:pointer}
 </style>
 <div class="ghl-pop" id="ghl-pop" role="dialog" aria-modal="true" aria-label="Get your free estimate" hidden>
@@ -156,14 +157,17 @@
   var pop = document.getElementById('ghl-pop');
   if (!pop) return;
   var x = pop.querySelector('.ghl-pop-x'), last = null;
-  function close() { pop.hidden = true; document.body.style.overflow = ''; if (last) last.focus(); }
+  /* html.ghl-pop-on hides GHL's chat widget while the dialog is open: at 360x640 its
+     greeting bubble sat over the form's submit button */
+  var root = document.documentElement;
+  function close() { pop.hidden = true; root.classList.remove('ghl-pop-on'); document.body.style.overflow = ''; if (last) last.focus(); }
   document.addEventListener('click', function (ev) {
     var a = ev.target.closest && ev.target.closest('a[href="#quote"]');
     if (!a) return;
     ev.preventDefault(); last = a;
     var m = document.getElementById('mnav'), b = document.querySelector('.burger');
     if (m && m.getAttribute('data-open') === 'true' && b) { b.click(); last = b; }
-    pop.hidden = false; document.body.style.overflow = 'hidden'; x.focus();
+    pop.hidden = false; root.classList.add('ghl-pop-on'); document.body.style.overflow = 'hidden'; x.focus();
   });
   document.addEventListener('focusin', function (ev) {
     if (!pop.hidden && !pop.contains(ev.target)) x.focus();
