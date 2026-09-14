@@ -924,8 +924,8 @@ a.btn-o:hover,a.btn-g:hover{color:#fff;text-decoration:none}
   background:linear-gradient(180deg,rgba(12,13,16,.74) 0%,rgba(12,13,16,.34) 32%,
     rgba(12,13,16,.72) 66%,rgba(12,13,16,.93) 100%)}
 .h-hero-veil::after{content:"";position:absolute;inset:0;background:rgba(12,13,16,.26)}
-/* align START since the GHL banner form: it is about 1170px tall at 1440, so
-   bottom-aligned copy sank below the fold behind it */
+/* align START: the GHL banner form grew to about 1170px before it became a fixed
+   560px scrolling box, and top alignment keeps the heading level with the form */
 .h-hero .wrap-w{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
   gap:52px;align-items:start}
 .h-hero h1{color:#fff;font-size:clamp(42px,6.2vw,88px);margin:0 0 22px;max-width:15ch}
@@ -975,17 +975,20 @@ a.btn-o:hover,a.btn-g:hover{color:#fff;text-decoration:none}
 .qf-or a{color:#fff;font-weight:700}
 /* the GHL banner form draws its own panel inside the iframe */
 .qf-ghl{border-radius:4px;overflow:hidden}
-.qf-ghl iframe{display:block}
+/* Every GHL form is a fixed-height box that scrolls INSIDE, the bigeasypatios.com
+   pattern (Spencer, 2026-09-14: "it should be scrolling form"). !important because
+   form_embed.js writes the form's full height into the iframe's inline style. */
+.qf-ghl iframe{display:block;height:560px !important}
 /* the GHL popup form, opened by every "#estimate" button */
 .ghl-pop{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:20px;
   background:rgba(12,13,16,.72)}
 .ghl-pop[hidden]{display:none}
-/* the close button sits OUTSIDE the scrolling body, so it never scrolls away and
+/* the close button sits OUTSIDE the scrolling form, so it never scrolls away and
    never covers the form's own title */
 .ghl-pop-box{position:relative;width:min(600px,100%);background:#fff;border-radius:6px;
   box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
-.ghl-pop-body{max-height:calc(100svh - 40px);overflow:auto;border-radius:6px}
-.ghl-pop-body iframe{display:block}
+.ghl-pop-body{overflow:hidden;border-radius:6px}
+.ghl-pop-body iframe{display:block;height:min(600px,calc(100svh - 72px)) !important}
 .ghl-pop-x{position:absolute;top:-14px;right:-14px;z-index:2;width:44px;height:44px;display:grid;
   place-items:center;background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:50%;
   box-shadow:0 6px 18px -6px rgba(0,0,0,.5);cursor:pointer}

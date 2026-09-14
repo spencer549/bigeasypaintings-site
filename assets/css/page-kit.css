@@ -134,6 +134,13 @@ section.bwsec > .wrap{position:relative;z-index:2}
 .qform{background:#fff;border:1px solid var(--line);border-radius:8px;padding:28px;
   box-shadow:0 1px 2px rgba(22,24,28,.05),0 12px 32px rgba(22,24,28,.08)}
 .qform h3{font-size:24px}
+/* The GHL form is a fixed-height card that scrolls INSIDE, the bigeasypatios.com
+   pattern (Spencer, 2026-09-14: "it should be scrolling form"). !important because
+   form_embed.js writes the form's full height (about 1,165px) into the iframe's
+   inline style, which would stretch the card down the whole section. */
+.qform-ghl{padding:22px 22px 14px;border-top:5px solid #f0a500}
+.qform-ghl h3{margin:0 0 14px}
+.qform-ghl iframe{display:block;width:100%;height:560px !important;border:0;border-radius:4px}
 .qlist li{padding:14px 0;border-top:1px solid var(--line);color:var(--ink);
   display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;align-items:start}
 .qlist li::before{content:"";width:9px;height:9px;border-radius:50%;background:#f0a500;
