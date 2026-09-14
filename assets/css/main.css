@@ -897,6 +897,21 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
   font-size:14.5px;padding:11px 20px;border-radius:2px;white-space:nowrap;
   transition:background-color 180ms var(--ease-out)}
 .h-hd-cta:hover{background:#ffb61f}
+/* THE THEME'S a:hover LEAKS INTO EVERY BUTTON. main.css ships
+   a:hover{color:var(--navy);text-decoration:underline} at (0,1,1), which outranks a
+   class-only colour at (0,1,0), so a button whose hover rule set only a background
+   took navy text and an underline on hover: navy on black on the stats band, navy on
+   near-black on both ghost phone buttons (Spencer, 2026-09-14: "cta button is black on
+   hover"). .h-nav a at (0,1,1) did the same to the header CTA at REST, white on amber
+   at 1.8:1. Every button now names its own colour and decoration, at a specificity
+   the theme cannot reach. Measured by a hover sweep of every CTA on every built page. */
+.h-nav a.h-hd-cta{color:var(--navy);opacity:1;font-weight:700}
+/* same leak on the two "Read more" links over the split panels' dark photographs:
+   navy on hover at 1.04:1 (Opus crosscheck) */
+a.h-half-more:hover{color:#fff}
+.h-nav a.h-hd-cta:hover{color:var(--navy);text-decoration:none}
+a.btn-a:hover,a.h-half-cta:hover,a.ft-cta:hover{color:var(--navy);text-decoration:none}
+a.btn-o:hover,a.btn-g:hover{color:#fff;text-decoration:none}
 
 .h-hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;
   padding:132px 0 56px;isolation:isolate;overflow:hidden}
@@ -1394,6 +1409,8 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
 .ft-legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;
   border-top:1px solid rgba(255,255,255,.16);margin-top:44px;padding-top:20px;font-size:13px}
 .ft-legal a{text-decoration:none}
+/* the theme's a:hover turned these navy on the navy footer, 1:1 on hover */
+.ft-legal a:hover{color:#fff;text-decoration:underline}
 
 /* back to top. Fixed, bottom right, appears once the hero is behind you and
    never sits over the mobile CTA rail. It is a real <a href="#top"> so it works
@@ -1505,7 +1522,9 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
 .sb-c-btn{background:var(--ink);color:#fff;text-decoration:none;font-family:var(--display);
   font-weight:800;font-size:15.5px;padding:14px 22px;border-radius:2px;white-space:nowrap;
   transition:background-color 180ms var(--ease-out)}
-.sb-c-btn:hover{background:#000}
+/* a.sb-c-btn, not .sb-c-btn: the theme's a:hover at (0,1,1) turned this text navy
+   on hover, on a black button. A lighter ground on hover so the state still reads. */
+a.sb-c-btn:hover{background:#353b42;color:#fff;text-decoration:none}
 .sb-c-tel{color:var(--ink);font-family:var(--display);font-weight:800;font-size:17px;
   white-space:nowrap;text-decoration:underline;text-underline-offset:4px}
 /* measured: the group wraps under the number at 1000px with the line shown and
