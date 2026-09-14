@@ -171,5 +171,33 @@
 <script src="../assets/js/paint-colors-content.js"></script>
 <script src="../assets/js/paint-colors-wall.js"></script>
 <script>(function(){var b=document.querySelector('.burger'),m=document.getElementById('mnav');if(!b||!m)return;function s(o){m.setAttribute('data-open',o?'true':'false');b.setAttribute('aria-expanded',o?'true':'false');b.setAttribute('aria-label',o?'Close menu':'Open menu');}b.addEventListener('click',function(){s(m.getAttribute('data-open')!=='true');});document.addEventListener('keydown',function(e){if(e.key==='Escape')s(false);});m.addEventListener('click',function(e){if(e.target.tagName==='A')s(false);});})();</script>
+<script type="text/plain" data-chat-src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="66c34f67d1bc9ef5f2f3ad71"></script>
+<script>
+(function () {
+  var tag = document.querySelector('script[type="text/plain"][data-widget-id]');
+  if (!tag) return;
+  /* Same event set WP Rocket watches, so the preview activates on the same
+     gestures the live site does. capture:true because a page handler that stops
+     propagation would otherwise swallow the only trigger this loader gets. */
+  var EV = ['scroll', 'mousemove', 'touchstart', 'touchmove', 'wheel', 'keydown', 'click'];
+  var opts = { passive: true, capture: true };
+  var fired = false;
+  function activate() {
+    if (fired) return;
+    fired = true;
+    EV.forEach(function (e) { window.removeEventListener(e, activate, opts); });
+    var s = document.createElement('script');
+    /* Copy the id across rather than hardcoding it here: one source of truth is
+       the whole point of this file, and a second literal is a second thing to
+       forget when the widget is ever replaced. */
+    s.src = tag.getAttribute('data-chat-src');
+    s.setAttribute('data-resources-url', tag.getAttribute('data-resources-url'));
+    s.setAttribute('data-widget-id', tag.getAttribute('data-widget-id'));
+    s.setAttribute('data-chat-activated', '1');
+    document.body.appendChild(s);
+  }
+  EV.forEach(function (e) { window.addEventListener(e, activate, opts); });
+})();
+</script>
 </body>
 </html>

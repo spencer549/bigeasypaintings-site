@@ -51,12 +51,7 @@
       <h1>One coat is a color,<span class="l2">two is a job</span></h1>
       <p class="h-hero-lede">The second coat is where the color goes true and the film reaches the thickness printed on the tin. We quote two coats because one is the thing you notice next spring.</p>
       <ul class="h-badges"><li>Free estimates</li><li>Licensed and insured</li><li>Eco friendly paints</li><li>Two coats on every quote</li></ul>
-      <div class="h-work">
-        <p class="h-work-l">Recent work</p>
-        <figure><img src="assets/img/house-painting-progression-506x488.jpg" alt="Single storey house finished in a dark charcoal with white window trim" loading="lazy" decoding="async"><figcaption>Ranch exterior</figcaption></figure><figure><img src="assets/img/stucco-gable.jpg" alt="Stucco gable with timber shutters, white trim and a paint tub left on the sill" loading="lazy" decoding="async"><figcaption>Stucco and trim</figcaption></figure>
-        <figure class="h-work-chip"><div class="sw" aria-hidden="true"><i style="background:#8b9c86"></i><i style="background:#5b7d92"></i><i style="background:#46545e"></i></div>
-          <figcaption>Colour matching</figcaption></figure>
-      </div>
+      <ul class="h-seals" aria-label="Ratings and guarantees"><li><img src="assets/img/google-rating.png" alt="Google Reviews five star rating" class="s-g" loading="eager" decoding="async"></li><li><img src="assets/img/facebook-rating.png" alt="Facebook 5 Star Customer Rating" class="s-fb" loading="eager" decoding="async"></li><li><img src="assets/img/seal-premium.png" alt="Quality premium guaranteed seal" class="s-q" loading="eager" decoding="async"></li><li><img src="assets/img/seal-satisfaction.png" alt="100% satisfaction guaranteed seal" class="s-q" loading="eager" decoding="async"></li></ul>
     </div>
     <div id="estimate">
 <form class="qf" action="#" method="post" novalidate>
@@ -275,7 +270,7 @@
 
 <section class="h-sec">
   <div class="wrap h-seemore">
-    <article class="h-see" data-rv="up" data-rv-delay="0"><div class="h-see-tiles"><figure><img src="assets/img/render-texture.jpg" alt="Yellow rendered wall meeting a grey brick sill and a moulded band under the eaves" loading="lazy" decoding="async"></figure><figure><img src="assets/img/attic-ceiling.jpg" alt="Sloped attic ceiling in white with daylight across it and a timber step ladder carrying a paint kettle" loading="lazy" decoding="async"></figure><figure><img src="assets/img/siding-casing-hook.jpg" alt="Pale blue lap siding beside a glazed panelled door with a brass knob and a cast iron hook" loading="lazy" decoding="async"></figure></div><div class="h-see-b"><div class="h-see-txt"><p class="kicker">Gallery</p><h2>Prep, color and finish</h2><p>Work photographed on the job, across the metro and across the year. The full set is on the gallery page.</p></div><a class="btn-o" href="gallery/">View the gallery</a></div></article>
+    <article class="h-see" data-rv="up" data-rv-delay="0"><div class="h-see-tiles"><figure><img src="assets/img/render-texture.jpg" alt="Yellow rendered wall meeting a grey brick sill and a moulded band under the eaves" loading="lazy" decoding="async"></figure><figure><img src="assets/img/attic-ceiling.jpg" alt="Sloped attic ceiling in white with daylight across it and a timber step ladder carrying a paint kettle" loading="lazy" decoding="async"></figure><figure><img src="assets/img/siding-casing-hook.jpg" alt="Pale blue lap siding beside a glazed panelled door with a brass knob and a cast iron hook" loading="lazy" decoding="async"></figure><figure><img src="assets/img/tkr-gray-vanity-tower-grid.jpg" alt="Gray linen tower and vanity beside a white panel door, against blue gray walls" loading="lazy" decoding="async"></figure><figure><img src="assets/img/tkr-green-vanity-grid.jpg" alt="Green vanity with brass pulls and a marble look top against pale sage walls" loading="lazy" decoding="async"></figure><figure><img src="assets/img/tkr-crown-molding-shower-grid.jpg" alt="Shower in a marble look slab framed by white crown molding and trim, beside a window and pale gray walls" loading="lazy" decoding="async"></figure></div><div class="h-see-b"><div class="h-see-txt"><p class="kicker">Gallery</p><h2>Prep, color and finish</h2><p>Work photographed on the job, across the metro and across the year. The full set is on the gallery page.</p></div><a class="btn-o" href="gallery/">View the gallery</a></div></article>
   </div>
 </section>
 
@@ -436,5 +431,33 @@ document.documentElement.classList.add('js');
 })();
 </script>
 <script src="assets/js/map.js" defer></script>
+<script type="text/plain" data-chat-src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="66c34f67d1bc9ef5f2f3ad71"></script>
+<script>
+(function () {
+  var tag = document.querySelector('script[type="text/plain"][data-widget-id]');
+  if (!tag) return;
+  /* Same event set WP Rocket watches, so the preview activates on the same
+     gestures the live site does. capture:true because a page handler that stops
+     propagation would otherwise swallow the only trigger this loader gets. */
+  var EV = ['scroll', 'mousemove', 'touchstart', 'touchmove', 'wheel', 'keydown', 'click'];
+  var opts = { passive: true, capture: true };
+  var fired = false;
+  function activate() {
+    if (fired) return;
+    fired = true;
+    EV.forEach(function (e) { window.removeEventListener(e, activate, opts); });
+    var s = document.createElement('script');
+    /* Copy the id across rather than hardcoding it here: one source of truth is
+       the whole point of this file, and a second literal is a second thing to
+       forget when the widget is ever replaced. */
+    s.src = tag.getAttribute('data-chat-src');
+    s.setAttribute('data-resources-url', tag.getAttribute('data-resources-url'));
+    s.setAttribute('data-widget-id', tag.getAttribute('data-widget-id'));
+    s.setAttribute('data-chat-activated', '1');
+    document.body.appendChild(s);
+  }
+  EV.forEach(function (e) { window.addEventListener(e, activate, opts); });
+})();
+</script>
 </body>
 </html>

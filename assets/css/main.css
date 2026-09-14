@@ -922,17 +922,20 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
   background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:8px 14px;
   border-radius:999px}
 .h-badges li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--amber)}
-.h-work{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
-.h-work-l{flex:1 0 100%;margin:0 0 4px;color:rgba(255,255,255,.74);font-family:var(--display);
-  font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
-.h-work figure{margin:0;width:150px}
-.h-work img{border-radius:3px;border:1px solid rgba(255,255,255,.26)}
-.h-work figcaption{color:rgba(255,255,255,.78);font-size:11.5px;letter-spacing:.07em;
-  text-transform:uppercase;margin-top:7px;font-weight:700}
-.h-work-chip{width:150px}
-.h-work-chip .sw{display:grid;grid-template-columns:repeat(3,1fr);border-radius:3px;
-  overflow:hidden;border:1px solid rgba(255,255,255,.26)}
-.h-work-chip .sw i{display:block;height:104px}
+/* The live site's four trust seals, in the slot the "Recent work" thumbnails held
+   until 2026-09-14. They are drawn for a WHITE ground (the Google mark's
+   "REVIEWS" is black type), so they sit on their own light plate and never on
+   the photograph. Heights stay at or under each file's native pixels (Google
+   141x81, Facebook 208x75, the two seals 82 and 86 square), so nothing is scaled
+   up past its own resolution. */
+.h-seals{display:inline-flex;flex-wrap:wrap;align-items:center;gap:12px 26px;
+  background:rgba(255,255,255,.97);border-radius:4px;padding:12px 22px;
+  box-shadow:0 18px 40px -26px rgba(0,0,0,.8)}
+.h-seals li{display:flex;align-items:center}
+.h-seals img{width:auto}
+.h-seals .s-g{height:50px}
+.h-seals .s-fb{height:42px}
+.h-seals .s-q{height:56px}
 
 .qf{background:rgba(20,22,26,.92);border:1px solid rgba(255,255,255,.18);padding:26px;
   border-radius:4px}
@@ -1298,8 +1301,13 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
    the copy runs underneath as a row with the button on the right so a short
    lede does not leave a wide empty band beside it. */
 .h-seemore .h-see{flex-direction:column}
-.h-seemore .h-see-tiles{gap:3px}
-.h-seemore .h-see-tiles figure{height:266px}
+/* SIX tiles since 2026-09-14, when three Turnkey Renovators photographs joined
+   the three gallery crops. Six in one row would be 200px portrait slots, so this
+   strip is a full GRID: three across on desktop, two across below 760px. Both
+   divide six exactly, which is the property that matters, and the gate now
+   checks for an empty cell instead of for a single row. */
+.h-seemore .h-see-tiles{gap:3px;grid-auto-flow:row;grid-template-columns:repeat(3,1fr)}
+.h-seemore .h-see-tiles figure{height:236px}
 .h-seemore .h-see-b{flex-direction:row;align-items:center;gap:44px;
   justify-content:space-between;padding:30px 34px}
 .h-seemore .h-see-txt{min-width:0}
@@ -1467,4 +1475,12 @@ html.js [data-rv].in{transition-delay:var(--d,0ms)}
   .h-see-b{padding:26px}
   .h-see-tiles figure{height:172px}
   .h-chip-sw{height:164px}
+  .h-seemore .h-see-tiles{grid-template-columns:repeat(2,1fr)}
+  .h-seemore .h-see-tiles figure{height:150px}
+  /* 63 + 83 + 40 + 40 of seal plus gaps and padding is 296px, inside the 320px
+     a 360 viewport leaves, so the plate stays on one line on small phones */
+  .h-seals{gap:10px 14px;padding:10px 14px}
+  .h-seals .s-g{height:36px}
+  .h-seals .s-fb{height:30px}
+  .h-seals .s-q{height:40px}
 }
